@@ -25,3 +25,6 @@ Upvote button/tracker for each post: by clicking on the number of likes, you can
 HOW TO START THE APPLICATION (at least how I did it):
 load this file in VSCode and install Live Server (https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
 click Go Live (a tab should open in your browser on a local port and the site should be running)
+
+Note: used browserify to import the fs module (for reading and writing locally), so might have to put "npm i browserify -g"
+in the terminal
