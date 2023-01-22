@@ -26,6 +26,7 @@ You will not be able to post messages containing "profanity"-- profanity as of n
 Upvote button/tracker for each post: by clicking on the number of likes, you can add a like. I implemented this by giving each post object an id and likes property. The id (index in the posts array) is used to locate the post, create a new post object with one extra like, and replace it in the array.
 
 Not implemented, but in order to make sure the data survives a server restart, I would create a SQLite database using Express. Everytime the server is started it would first request all the existing posts with a SELECT * query. Whenever the data is modified (post added or post liked), it would make a request to the database to add a row (representing one post with its attributes in separate columns) using an INSERT query.
+
 HOW TO START THE APPLICATION :
 in the server folder, do "npm run dev" to start up the server locally on port 5001
 in the client folder, do "npm start" to start the client-side site locally on port 3000
