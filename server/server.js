@@ -18,7 +18,7 @@ var testPosts = [
     },
 ];
 
-var allPosts = testPosts
+var allPosts = []
 
 app.get("/api", (req, res) => {
     res.json({

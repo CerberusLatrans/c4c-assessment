@@ -13,8 +13,27 @@ function App() {
         )
     }, [])
 
-    var message = ""
+    let handleSubmit = (event) => {
+        event.preventDefault();
+        submitPost(event.target[0].value)
+        fetch("/api").then(
+            response => response.json()
+        ).then(
+            data => {
+                setBackendData(data)
+            })
+    }
 
+    let handleLike = (event, i) => {
+        event.preventDefault();
+        likePost(i)
+        fetch("/api").then(
+            response => response.json()
+        ).then(
+            data => {
+                setBackendData(data)
+            })
+    }
     return (
         <div>
             <meta charSet="utf-8"/>
@@ -27,19 +46,22 @@ function App() {
             <h1>Welcome!</h1>
             </header>
             <main>
-            <input type="text" className="message" placeholder="Write something!" onChange={(e)=>message = e}/>
-            <button id="submitButton" className="message" onClick={submitPost(message)}>Post</button>
+            <form onSubmit={handleSubmit}>
+                <input type="text" className="message" placeholder="Write something!"/>
+                <button type="submit" id="submitButton" className="message">Post</button>
+            </form>
+            
                 <ol>
                     {(backendData.posts != null || typeof backendData.posts !== 'undefined') ? (
                         backendData.posts.map((post, i) => (
                             <div key={i} className="commentBox">
-                                <button id="likeButton" onClick={likePost(post.id)}>
+                                <button id="likeButton" onClick={(e) => handleLike(e, i)}>
                                 {post.likes}
                                 </button>
                                 <p className="message">
                                     {post.message}
                                 </p>
-                                <p className="timestamp">
+                                <p className="timestamp"> 
                                     {new Date(post.date).toLocaleString()}
                                 </p>
                             </div>
@@ -71,7 +93,7 @@ function submitPost(text) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({"msg":text})
         };
-        fetch('/post', requestOptions).then(response => response.json())
+        fetch('/post', requestOptions)
     }
 }
 
@@ -80,7 +102,7 @@ function likePost(postId) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
     };
-    fetch("/like/"+postId, requestOptions).then(response => response.json())
+    fetch("/like/"+postId, requestOptions)
 }
 
 export default App;
